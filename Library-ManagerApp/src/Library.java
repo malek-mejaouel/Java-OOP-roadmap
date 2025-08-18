@@ -12,12 +12,8 @@ public class Library {
     }
 
     // Add book
-    public void addBook() {
-        System.out.print("Book title: ");
-        String title = input.nextLine();
-        System.out.print("Author name: ");
-        String author = input.nextLine();
-        Book b = new Book(title, author);
+    public void addBook(String x,String y) {
+        Book b = new Book(x,y);
         books.add(b);
         System.out.println("✅ Book added!");
     }

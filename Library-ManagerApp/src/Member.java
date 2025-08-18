@@ -1,4 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Member {
     private static int idCounter = 1; // auto increment
@@ -34,5 +37,29 @@ public class Member {
                 ", SecretCode='" + secretCode + '\'' +
                 ", BorrowedBooks=" + borrowedBooks.size() +
                 '}';
+    }
+    public static Member login(String secretCode, String Members_file){
+        try(BufferedReader reader= new BufferedReader(new FileReader(Members_file))){
+            String line ;
+            while ((line = reader.readLine()) != null){
+                String[] data = line.split(",");
+                if(data.length == 2 && data[1].equals(secretCode)){
+                    return new Member(data[0],data[1]);
+                }
+            }
+        }
+        catch (IOException e) {
+            System.out.println("No members file found , creatinng one at the moment...");
+        }
+        return null;
+    }
+    public static void saveMember(Member member,String Member_file){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(Member_file,true))){
+            writer.write(member.getName() + "," + member.getSecretCode());
+            writer.newLine();
+        }
+        catch (IOException e){
+            System.out.println("Error while saving Member");
+        }
     }
 }
