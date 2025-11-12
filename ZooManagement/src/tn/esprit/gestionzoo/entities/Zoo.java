@@ -1,5 +1,4 @@
 package tn.esprit.gestionzoo.entities;
-
 import java.util.Arrays;
 
 public class Zoo {
@@ -8,8 +7,12 @@ public class Zoo {
     private String city;
     private static final int nbmax=25;
     private int nbcg=0;
+    private Aquatic[] aquatics;
+    private static final int nba=10;
+    private int nbca;
     public Zoo(String a,String b){
         this.animals = new Animal[nbmax];
+        this.aquatics=new Aquatic[nba];
         this.city=a;
         this.name=b;
     }
@@ -65,6 +68,37 @@ public class Zoo {
         }
         return false;
     }
+    public void addAquaticAnimal(Aquatic aquatic){
+        do{
+        aquatics[nbca]=aquatic;
+        nbca++;
+    }while(nbca<nba);
+    }
+    public float maxPenguinSwimmingDepth(){
+        float maxDepth=0;
+        for(int i=0;i<nbca;i++){
+            if(aquatics[i] instanceof Penguin){
+                if(((Penguin) aquatics[i]).swimmingDepth>maxDepth){
+                    maxDepth= ((Penguin) aquatics[i]).swimmingDepth;
+                }
+            }
+        }
+        return maxDepth;
+    }
+    public void DisplayNumberOfAquaticsByType(){
+        int nbD=0,nbP=0;
+        for(int i=0;i<nbca;i++){
+            if(aquatics[i] instanceof Penguin){
+                nbP++;
+            }
+            else{
+                nbD++;
+            }
+        }
+        System.out.println("Le nombre de Dophin est"+nbD);
+        System.out.println("Le nombre de Penguin est"+nbP);
+
+    }
     public void Display(){
         for(int i=0;i<nbcg;i++){
             System.out.println(animals[i]);
@@ -101,4 +135,5 @@ public class Zoo {
                 ", nbcg=" + nbcg +
                 '}';
     }
+
 }
