@@ -1,6 +1,7 @@
 package tn.esprit.gestionzoo.entities;
-
-public sealed abstract class Aquatic extends Animal permits Dolphin,Penguin {
+import tn.esprit.gestionzoo.enums.food;
+import tn.esprit.gestionzoo.interfaces.Carnivore;
+public sealed abstract class Aquatic extends Animal implements Carnivore<food> permits Dolphin,Penguin  {
     public String habitat;
 
     @Override
@@ -22,5 +23,13 @@ public sealed abstract class Aquatic extends Animal permits Dolphin,Penguin {
             return a.getName().equalsIgnoreCase(getName()) && a.getAge()==getAge()&& a.habitat.equalsIgnoreCase(habitat);
         }
         return false;
+    }
+    @Override
+    public void eatMeat(food meat){
+        if ( meat == food.Meat || meat == food.BOTH) {
+            System.out.println(getName() + " (Aquatic) eats meat.");
+        } else {
+            System.out.println(getName() + " (Aquatic) does not eat plants.");
+        }
     }
 }
